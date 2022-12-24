@@ -268,24 +268,14 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 	echo "local $ip
 port $port
 proto $protocol
-group $group_name
 dev tun
-user nobody
-persist-key
-persist-tun
-keepalive 10 120
-server 10.8.0.0 255.255.255.0
-ifconfig-pool-persist ipp.txt
-dh dh.pem
 ca ca.crt
-cert server_xcVehZegEHjE22An.crt
-key server_xcVehZegEHjE22An.key
-auth SHA256
-tls-server
-tls-version-min 1.2
-tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
-client-config-dir /etc/openvpn/ccd
-status /var/log/openvpn/status.log
+cert server.crt
+key server.key
+dh dh.pem
+auth SHA1
+tls-crypt tc.key
+topology subnet
 server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
 	if [[ -z "$ip6" ]]; then
@@ -332,8 +322,11 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 		;;
 	esac
 	echo "keepalive 10 120
-cipher AES-256-CBC
-ncp-ciphers AES-256-CBC
+cipher AES-128-CBC
+user nobody
+group $group_name
+persist-key
+persist-tun
 verb 3
 crl-verify crl.pem" >> /etc/openvpn/server/server.conf
 	if [[ "$protocol" = "udp" ]]; then
@@ -429,7 +422,7 @@ persist-key
 persist-tun
 remote-cert-tls server
 auth SHA1
-cipher AES-256-CBC
+cipher AES-128-CBC
 ignore-unknown-option block-outside-dns
 block-outside-dns
 verb 3" > /etc/openvpn/server/client-common.txt
