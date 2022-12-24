@@ -280,7 +280,7 @@ ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
-#tls-crypt tc.key
+tls-crypt tc.key
 #tls-auth tls-auth.key 0
 #tls-server
 #tls-version-min 1.2
