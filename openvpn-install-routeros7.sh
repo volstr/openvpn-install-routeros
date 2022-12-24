@@ -268,24 +268,28 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 	echo "local $ip
 port $port
 proto $protocol
+group $group_name
 dev tun
 user nobody
-group $group_name
 persist-key
 persist-tun
 client-to-client
 client-config-dir /etc/openvpn/client/
-topology subnet
 ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
-tls-crypt tc.key
-tls-auth tls-auth.key 0
+ca ca.crt
+cert server.crt
+key server.key
+dh dh.pem
+auth SHA1
 tls-server
 tls-version-min 1.2
+tls-crypt tc.key
+tls-auth tls-auth.key 0
 tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
-auth SHA1
+topology subnet
 server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
 	if [[ -z "$ip6" ]]; then
@@ -333,10 +337,6 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	esac
 	echo "keepalive 10 120
 cipher AES-256-CBC
-user nobody
-group $group_name
-persist-key
-persist-tun
 verb 3
 crl-verify crl.pem" >> /etc/openvpn/server/server.conf
 	if [[ "$protocol" = "udp" ]]; then
