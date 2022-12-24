@@ -283,8 +283,8 @@ dh dh.pem
 tls-crypt tc.key
 tls-auth tls-auth.key 0
 tls-server
-#tls-version-min 1.2
-#tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
+tls-version-min 1.2
+tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
 auth SHA1
 server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
