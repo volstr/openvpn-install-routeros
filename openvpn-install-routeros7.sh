@@ -269,26 +269,16 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 port $port
 proto $protocol
 group $group_name
-dev tun
 user nobody
 persist-key
 persist-tun
-client-to-client
-client-config-dir /etc/openvpn/client/
-ca ca.crt
-cert server.crt
-key server.key
-dh dh.pem
+dev tun
 ca ca.crt
 cert server.crt
 key server.key
 dh dh.pem
 auth SHA1
-tls-server
-tls-version-min 1.2
 tls-crypt tc.key
-tls-auth tls-auth.key 0
-tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
 topology subnet
 server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
