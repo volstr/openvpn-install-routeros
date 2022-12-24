@@ -270,15 +270,22 @@ port $port
 proto $protocol
 group $group_name
 dev tun
-ca ca.crt
-cert server.crt
-key server.key
+user nobody
+persist-key
+persist-tun
+keepalive 10 120
+server 10.8.0.0 255.255.255.0
+ifconfig-pool-persist ipp.txt
 dh dh.pem
-auth SHA1
+ca ca.crt
+cert server_xcVehZegEHjE22An.crt
+key server_xcVehZegEHjE22An.key
+auth SHA256
 tls-server
 tls-version-min 1.2
 tls-cipher TLS-ECDHE-RSA-WITH-AES-128-GCM-SHA256
-topology subnet
+client-config-dir /etc/openvpn/ccd
+status /var/log/openvpn/status.log
 server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	# IPv6
 	if [[ -z "$ip6" ]]; then
@@ -327,9 +334,6 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	echo "keepalive 10 120
 cipher AES-256-CBC
 ncp-ciphers AES-256-CBC
-user nobody
-persist-key
-persist-tun
 verb 3
 crl-verify crl.pem" >> /etc/openvpn/server/server.conf
 	if [[ "$protocol" = "udp" ]]; then
