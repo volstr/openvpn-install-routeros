@@ -268,10 +268,6 @@ ssbzSibBsu/6iGtCOGEoXJf//////////wIBAg==
 	echo "local $ip
 port $port
 proto $protocol
-group $group_name
-user nobody
-persist-key
-persist-tun
 dev tun
 ca ca.crt
 cert server.crt
@@ -327,6 +323,10 @@ server 10.8.0.0 255.255.255.0" > /etc/openvpn/server/server.conf
 	esac
 	echo "keepalive 10 120
 cipher AES-256-CBC
+user nobody
+group $group_name
+persist-key
+persist-tun
 verb 3
 crl-verify crl.pem" >> /etc/openvpn/server/server.conf
 	if [[ "$protocol" = "udp" ]]; then
